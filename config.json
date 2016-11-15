@@ -1,0 +1,22 @@
+{
+  "resizes": [
+    {
+      "width": 80,
+      "targetBucket": "tank-master",
+      "targetDir": "resized/small",
+      "ACL": "public-read"
+    },
+    {
+      "width": 600,
+      "targetBucket": "tank-master",
+      "targetDir": "resized/middle",
+      "ACL": "public-read"
+    },
+    {
+      "width": 900,
+      "targetBucket": "tank-master",
+      "targetDir": "resized/large",
+      "ACL": "public-read"
+    }
+  ]
+}
