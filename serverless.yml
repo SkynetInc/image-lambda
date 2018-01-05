@@ -1,0 +1,25 @@
+service: serverless-thumbnail
+package:
+  excludeDevDependencies: true
+  exclude:
+    - .idea/**
+    - .git/**
+    - test/**
+
+provider:
+  name: aws
+  stage: prod
+  runtime: nodejs6.10
+  region: ap-southeast-2
+  memorySize: 1024
+  timeout: 60
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+    - s3:putObject
+    - s3:PutObjectAcl
+    Resource: "*"
+
+functions:
+  resize:
+    handler: index.handler

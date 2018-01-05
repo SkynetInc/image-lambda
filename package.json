@@ -1,33 +1,28 @@
 {
-  "name": "image-lambda",
-  "version": "1.0.0",
-  "description": "An AWS Lambda function that AWS S3 can invoke to create thumbnails or reduce file size for png and jpg images.",
+  "name": "serverless-image-lambda",
+  "version": "0.0.1",
+  "description": "An Serverless AWS Lambda function that AWS S3 can invoke to create thumbnails or reduce file size for png and jpg images.",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/*.test.js",
-    "build": "./build.sh",
-    "vagrant:build": "./vagrant_build.sh"
+    "test": "mocha test/*.test.js",
+    "deploy": "serverless deploy --verbose"
   },
-  "author": "Chen Liang",
+  "authors": "Chen Liang, Pawel Mordaszewski",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.3.9",
-    "gm": "^1.22.0",
-    "imagemin": "^5.1.1",
+    "aws-sdk": "^2.90.0",
+    "gm": "^1.23.0",
+    "imagemin": "^5.3.1",
     "imagemin-mozjpeg": "^6.0.0",
-    "imagemin-pngquant": "^5.0.0"
+    "imagemin-pngquant": "^5.0.1"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^1.0.10",
+    "aws-sdk-mock": "^1.7.0",
     "chai": "^3.5.0",
-    "mocha": "^2.4.5",
+    "mocha": "^3.4.1",
     "mkdirp": "latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:slimfancy/image-lambda.git"
   }
 }

@@ -11,16 +11,19 @@ const path = require("path");
 describe("ImageProcessor#resize()", function () {
     this.timeout(10000);
     let config;
-
+    let postfix;
     beforeEach(function () {
-        config = {
+      postfix = "-thumbnail";
+      config = {
             "resizes": [
                 {
                     "width": 400,
                     "sourceDir": "images/uploads",
                     "targetBucket": "target-bucket",
                     "targetDir": "images/400w",
-                    "ACL": "public-read"
+                    "ACL": "public-read",
+                    "postfix": postfix
+
                 }
             ]
         }
@@ -28,6 +31,7 @@ describe("ImageProcessor#resize()", function () {
 
     describe("jpg images:", function () {
         let files = ["fixture/jpg/girl-2560x1600-1.3MB.jpg",
+            "fixture/jpg/trails-5472x3648-8.48M.JPG",
             "fixture/jpg/ios9-1050x1734-299KB.jpg",
             "fixture/jpg/meeting-5184x3456-7.2MB.jpg"];
 
@@ -40,7 +44,7 @@ describe("ImageProcessor#resize()", function () {
                     let resizedImage = results[0];
                     expect(resizedImage.getS3Params().ACL).to.equal("public-read");
                     expect(resizedImage.getS3Params().ContentType).to.equal("image/jpeg");
-                    expect(resizedImage.getKey()).to.equal("images/400w/" + file);
+                    // expect(resizedImage.getKey()).to.equal("images/400w/" + file);
                     expect(resizedImage.getBucket()).to.equal("target-bucket");
                     helper.saveOutImageFile(resizedImage);
                     gm(resizedImage.getData()).size(function (error, size) {
@@ -68,7 +72,32 @@ describe("ImageProcessor#resize()", function () {
                     let resizedImage = results[0];
                     expect(resizedImage.getS3Params().ACL).to.equal("public-read");
                     expect(resizedImage.getS3Params().ContentType).to.equal("image/png");
-                    expect(resizedImage.getKey()).to.equal("images/400w/" + file);
+                    // expect(resizedImage.getKey()).to.equal("images/400w/" + file);
+                    expect(resizedImage.getBucket()).to.equal("target-bucket");
+                    helper.saveOutImageFile(resizedImage);
+                    gm(resizedImage.getData()).size(function (error, size) {
+                        expect(size.width).to.equal(config.resizes[0].width);
+                        done();
+                    });
+                }).catch(function (error) {
+                    console.error(error);
+                });
+            });
+        }
+    });
+    describe("tiff images:", function () {
+        let files = ["fixture/tiff/test.tiff"];
+
+        for (let file of files) {
+            it(file, function (done) {
+                let data = fs.readFileSync(path.resolve(__dirname, file));
+                let image = new S3Image("test-bucket", "images/uploads/" + file, data, {ContentType: "image/tiff"});
+                let processor = new ImageProcessor(image, config);
+                processor.run().then(function (results) {
+                    let resizedImage = results[0];
+                    expect(resizedImage.getS3Params().ACL).to.equal("public-read");
+                    expect(resizedImage.getS3Params().ContentType).to.equal("image/tiff");
+                    // expect(resizedImage.getKey()).to.equal("images/400w/" + file);
                     expect(resizedImage.getBucket()).to.equal("target-bucket");
                     helper.saveOutImageFile(resizedImage);
                     gm(resizedImage.getData()).size(function (error, size) {

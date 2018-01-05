@@ -9,14 +9,14 @@
       "s3": {
         "configurationId": "testConfigRule",
         "object": {
-          "eTag": "cb6c56519fee71d9eecdc349d31316b9",
+          "eTag": "824076c594d5e629f1ef1436e987fdef",
           "sequencer": "0A1B2C3D4E5F678901",
-          "key": "images/uploads/test-images/iphone.jpg",
-          "size": 275480
+          "key": "testImage.png",
+          "size": 2241
         },
         "bucket": {
-          "arn": "arn:aws:s3:::dev.eggular",
-          "name": "dev.eggular",
+          "arn": "arn:aws:s3:::pylot",
+          "name": "pylot",
           "ownerIdentity": {
             "principalId": "self"
           }
