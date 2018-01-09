@@ -18,4 +18,8 @@ deployment:
     branch: master
     commands:
       - npm run deploy -- --stage prod
+  develop:
+    branch: develop
+    commands:
+      - npm run deploy -- --stage dev
 
