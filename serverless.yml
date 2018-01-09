@@ -13,6 +13,8 @@ provider:
   region: ap-southeast-2
   memorySize: 1024
   timeout: 60
+  environment:
+    ENVIRONMENT: ${opt:stage, self:provider.stage}
   iamRoleStatements:
   - Effect: Allow
     Action:

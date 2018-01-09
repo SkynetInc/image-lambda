@@ -15,6 +15,7 @@ exports.handler = function (event, context, callback) {
   let config = JSON.parse(fs.readFileSync(path.resolve(__dirname, "config.json"), {encoding: "utf8"}));
   let s3Client = new S3Client();
 
+  console.info('Running lambda environment', process.env.ENVIRONMENT);
   s3Client.getS3Image(srcBucket, srcKey)
   .then(function (image) {
     let processor = new ImageProcessor(image, config);
